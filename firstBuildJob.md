@@ -50,7 +50,9 @@
 
 * Post-Build Actions
     - Select 'Archive the artifacts' --> under 'Files to archive' --> '**/*.war' (to search for .war files recursively, all sub folders, in the workspace)
-    > This will keep the artifact in a different location so that even if the workspace is wiped out we can retreive the artifact from there by going to job status
+    > This will keep the artifact in a different location so that even if the workspace is wiped out we can retreive the artifact from there by going to job status. Remove this action if trying with additional build step for artifact versioning
+
+    - To move the artifact to s3 bucket (make sure the plugin is installed) --> select 'Publish artifacts to s3 bucket' (covered later)
 
 ### Practice
 * create a test job and use jdk11 --> for this use branch 'jdk11' in 'https://github.com/hkhcoder/vprofile-project.git

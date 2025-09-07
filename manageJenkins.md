@@ -43,3 +43,5 @@
 > After installing this plugin, we need to set the format, timezone...etc
 
     System --> Build Timestamp (willsee only if the plugin is installed)
+
+* Plugin for s3 bucket --> to store the artifacts instead of jenkins workspace (which is not permanent)
