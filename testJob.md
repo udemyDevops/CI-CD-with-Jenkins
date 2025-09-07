@@ -3,6 +3,7 @@
 
 * To create a job, Dashboard --> click on '+ New Item' or 'create a job'
 > '+ New Item' --> give a name and select item type as 'freestyle project' (for practice) --> ok
+
 > The configuration has certain sections
     
     1. General
