@@ -28,5 +28,5 @@
 
     eg: cat /proc/cpuinfo > cpuinfo.txt
     
-    After the gets completed the 'cpuinfo.txt' file will be added in the workspace
+    After the job gets completed the 'cpuinfo.txt' file will be added in the workspace
 
