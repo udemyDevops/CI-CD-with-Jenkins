@@ -1,9 +1,3 @@
-* Jenkins is extensible (it's features can be extended using plugins)
-
-### Jobs in Jenkins
-* Freestyle
-* Pipeline as a code
-
 ### Jenkins tools
 * For vprofile we need
     - git --> to clone source code
