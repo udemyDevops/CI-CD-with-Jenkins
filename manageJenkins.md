@@ -37,4 +37,9 @@
     Installed plugins
     Advanced settings
 
+* plugin for time stamp --> Build Timestamp, which we can use to store the artifact with time stamp
+> this plugin will add a variable BUILD_TIMESTAMP
 
+> After installing this plugin, we need to set the format, timezone...etc
+
+    System --> Build Timestamp (willsee only if the plugin is installed)
