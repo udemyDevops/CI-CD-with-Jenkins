@@ -1,4 +1,7 @@
-### Jenkins tools
+1. [_Tools_](#tools)
+2. [_Plugins_](#plugins)
+
+## Tools
 * For vprofile we need
     - git --> to clone source code
     - maven --> to build the code which inturn need
@@ -23,3 +26,14 @@
 > 'apt install openjdk-17-jdk' --> 'java -version' can see the 21 as the default version --> 'ls /usr/lib.jvm/' java home directory, can see the installed jdk versions
 
 > so the JAVA_HOME required for jdk tool in Jenkins UI is '/usr/lib.jvm/java-<version>-openjdk-amd64'
+
+
+## Plugins
+> 
+
+    Updates
+    Availbale plugins
+    Installed plugins
+    Advanced settings
+
+
