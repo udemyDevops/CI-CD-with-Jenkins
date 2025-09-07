@@ -3,7 +3,12 @@
     - git --> to clone source code
     - maven --> to build the code which inturn need
         * jdk/java
-    
+> Jenkins need the tools to be installed on the OS and also the plugin.
+
+    Jenkins by default comes with Maven plugin but the tool needs to be installed/added.
+    Manage Jenkins --> tools --> Maven Installations -- Add Maven
+
+
 * all this need to be done 
     - using plugins (Manage jenkins --> Plugins --> install the selected plugin)
     - install the tools on the OS where jenkins is running
