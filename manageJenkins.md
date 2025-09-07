@@ -17,4 +17,4 @@
 
 > 'apt install openjdk-17-jdk' --> 'java -version' can see the 21 as the default version --> 'ls /usr/lib.jvm/' java home directory, can see the installed jdk versions
 
-> so the JAVA_HOME required for jdk tool in JEnkins UI is '/usr/lib.jvm/java-<version>-openjdk-amd64'
+> so the JAVA_HOME required for jdk tool in Jenkins UI is '/usr/lib.jvm/java-<version>-openjdk-amd64'
