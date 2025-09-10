@@ -64,6 +64,10 @@
 ## Plugins
     - Nexus
     - Sonarqube
-    - Git (get by default in jenkins)
-    - Pipeline Maven integration plugin (to write pipeline as a code)
+    - Git (installed by default in jenkins)
+    - Pipeline Maven integration (to write pipeline as a code)
+    - pipeline utility steps
     - Build timestamp
+
+* Manage Jenkins -->  manage plugins --> under plugin manager, select Available and search for the above plugin
+> Nexus artifact uploader, SonarQube Scanner 
