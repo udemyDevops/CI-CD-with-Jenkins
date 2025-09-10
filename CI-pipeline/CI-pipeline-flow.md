@@ -18,8 +18,9 @@
 * Jenkins --> Ubuntu
 > Bash scripts 
 
-    (https://github.com/hkhcoder/vprofile-project --> branch --> atom --> userdata)
+    https://github.com/hkhcoder/vprofile-project --> branch --> atom --> userdata
     
     or
 
+    https://github.com/udemyDevops/CI-CD-with-Jenkins --> CI-pipeline --> userData
 
