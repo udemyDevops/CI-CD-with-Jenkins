@@ -1,7 +1,13 @@
 pipeline {
-	agent any
-	tools {
-	    maven "MAVEN3.9"
+	agent any  // run on any agent including master
+
+	// To select the agent, use the below block
+	// agent {
+	// 	label "Master"
+	// }
+
+	tools {  // Names of the tools should be same as added in jenkins tools configuration
+	    maven "MAVEN3.9"	// maven is the tool and MAVEN3.9 is the name added in tool configuration
 	    jdk "JDK17"
 	}
 
