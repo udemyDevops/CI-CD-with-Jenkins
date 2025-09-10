@@ -6,23 +6,30 @@
 [_sample-file_](Jenkinsfile)
 
     pipeline {
-        agent any
-        tools {
-            maven "MAVEN3.9"
+        agent any  // run on any agent including master
+
+        // To select the agent, use the below block
+        // agent {
+        // 	label "Master"
+        // }
+
+        tools {  // Names of the tools should be same as added in jenkins tools configuration
+            maven "MAVEN3.9"	// maven is the tool and MAVEN3.9 is the name added in tool configuration
             jdk "JDK17"
         }
 
         stages {
-            stage('Fetch code') {
-                steps {
-                git branch: 'atom', url: 'https://github.com/hkhcoder/vprofile-project.git'
+            stage('Fetch code') { // in steps we can mention the plugin or shell command to execute....
+                steps { // git is the plugin used in this step
+                    // to write the git plugin refer documentaion 'https://www.jenkins.io/doc/pipeline/steps/git/'
+                    git branch: 'atom', url: 'https://github.com/hkhcoder/vprofile-project.git'
                 }
 
             }
 
 
-        stage('UNIT TEST') {
-                steps{
+            stage('UNIT TEST') {
+                steps{ // shell command is executed in this step
                     sh 'mvn test'
                 }
             }
@@ -30,16 +37,18 @@
 
             stage('Build'){
                 steps{
-                sh 'mvn install -DskipTests'
+                    // mvn install will execute all the phases including the tests done in previous stage, so we can skip the test phase
+                    sh 'mvn install -DskipTests' // any maven option to pass put -D and without space add the option
                 }
 
                 post {
-                success {
-                    echo 'Now Archiving it...'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
+                    success {
+                        echo 'Now Archiving it...'
+                        archiveArtifacts artifacts: '**/target/*.war'  // archiveArtifacts is the plugin name
+                    }
                 }
             }
+
             
         }
     }

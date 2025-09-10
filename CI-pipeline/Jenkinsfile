@@ -12,8 +12,9 @@ pipeline {
 	}
 
 	stages {
-	    stage('Fetch code') {
-            steps {
+	    stage('Fetch code') { // in steps we can mention the plugin or shell command to execute....
+            steps { // git is the plugin used in this step
+				// to write the git plugin refer documentaion 'https://www.jenkins.io/doc/pipeline/steps/git/'
                git branch: 'atom', url: 'https://github.com/hkhcoder/vprofile-project.git'
             }
 
@@ -21,7 +22,7 @@ pipeline {
 
 
        stage('UNIT TEST') {
-            steps{
+            steps{ // shell command is executed in this step
                 sh 'mvn test'
             }
         }
@@ -29,13 +30,14 @@ pipeline {
 
 	    stage('Build'){
 	        steps{
-	           sh 'mvn install -DskipTests'
+				// mvn install will execute all the phases including the tests done in previous stage, so we can skip the test phase
+	           sh 'mvn install -DskipTests' // any maven option to pass put -D and without space add the option
 	        }
 
 	        post {
 	           success {
 	              echo 'Now Archiving it...'
-	              archiveArtifacts artifacts: '**/target/*.war'
+	              archiveArtifacts artifacts: '**/target/*.war'  // archiveArtifacts is the plugin name
 	           }
 	        }
 	    }
