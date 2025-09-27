@@ -51,9 +51,9 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
     - Jenkins Dashboard --> manage --> system --> Scroll down to find **SonarQube servers** --> tick `Envriornment variables` and click `Add SonarQube` under SonarQube installations
         1. Give a name (to identify the SonarQube server)
         2. URL (for this practice we use private IP of SonrQube server but in real time it can be a DNS name)
-        > eg: `http://<privateIP>:port`
+            > eg: `http://<privateIP>:port`
             
-        > For this practice, nginx runs on SonarQube server which listens on port 80 (default port of http) and redirects to SonarQube on port 9000
+            > For this practice, nginx runs on SonarQube server which listens on port 80 (default port of http) and redirects to SonarQube on port 9000
         3. Server Authentication Token
             - Get the autehntication token from SonarQube service --> MyAccount --> security --> generate a token and copy it
             - Now click on `Add` --> select Jenkins (credentials provider)
@@ -74,11 +74,11 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
         - save --> build now
         - Build history -->  click on the success(/failed) button beside the job number (eg: #1) for job details. It will open console output.
             * Change to worksapces --> click on the path --> `target` --> can see the `checkstyle-result.xml` output of code analysis
-            > xml format not easy to read so we send this result to sonar dashboard to get the report analysis
+                > xml format not easy to read so we send this result to sonar dashboard to get the report analysis
 
 #### Pipeline with SonarQube code analysis
 * Documentation to use SonarQube plugin --> https://www.jenkins.io/doc/pipeline/steps/sonar/
-> As we install sonar tool in jenkins, we can also use the SonarQube documentation to use the plugin in pileine (https://docs.sonarsource.com/sonarqube-server/9.8/analyzing-source-code/scanners/jenkins-extension-sonarqube)
+    > As we install sonar tool in jenkins, we can also use the SonarQube documentation to use the plugin in pileine (https://docs.sonarsource.com/sonarqube-server/9.8/analyzing-source-code/scanners/jenkins-extension-sonarqube)
 
 * Pipeline code with SonarQube code analysis [_Jenkinsfile with SonarQube code analysis_](Jenkinsfile-with-sonarQube-codeAnalysis)
 
@@ -101,7 +101,7 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
 * To use the custom qulaity gate, we need to add another stage for it in pipeline [_Jenkinsfile with SonarQube code analysis and Quality gate_](Jenkinsfile-with-sonarQube-codeAnalysis-qualityGate)
     - In Jenkins --> update the pipeline code in the same pipeline used for SonarQube code analysis above
         - Go to the pipeline used for SonarQube code analysis --> configure --> update the script (Under Pipeline --> Definition --> paste the pipeline script)
-        > before saving this, make sure the jenkins server SG has a rule to allow port 8080 from SonarQube SG
+            > before saving this, make sure the jenkins server SG has a rule to allow port 8080 from SonarQube SG
         - save --> build now
         - after the job is completed, if the quality gate satge fails due to quality gate error the project in the SonarQube will also show as Failed
 
@@ -122,5 +122,5 @@ There are different kinds of repositories like Maven to store Maven dependencies
 * Make sure the Nexus server is up and running. Access the service using its IP on port 8081 (refer [_Nexus set up in CI-pipeline-flow md file_](CI-pipeline-flow.md))
     - Settings --> Repositories (there will be some default repositories) --> click on `create repository`
     - Under `Recipe` --> select `maven2(hosted)` (for our use case as we need to store the artifact)
-    > Under 'Recipe' we can find different repositories each having 3 categories --> `group, hosted and proxy`. If the use case is to download dependencies from the repository then we can select proxy. Group is to group both hosted and prxy repositories together.
+        > Under 'Recipe' we can find different repositories each having 3 categories --> `group, hosted and proxy`. If the use case is to download dependencies from the repository then we can select proxy. Group is to group both hosted and prxy repositories together.
     - After selecting 'maven2(hosted)' --> give a name to repo --> scroll down and click `create repository`
