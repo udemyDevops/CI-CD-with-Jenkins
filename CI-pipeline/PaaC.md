@@ -9,13 +9,13 @@ This file covers
 - [pipeline with Nexus](#pipeline-with-nexus)
 
 ## Sample pipeline with fetching code, test and Build
-* To automate the pipeline setup with a file called --> 'Jenkinsfile'
+* To automate the pipeline setup with a file called --> `Jenkinsfile`
     ![paac-intro](paac-intro.png)
 
 [_sample-file_](Jenkinsfile)
 > doc: https://www.jenkins.io/doc/book/pipeline/
 
-* In Jenkins --> '+ New Item' --> Give a name and select item type as 'pipeline' and click ok
+* In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
     - has 3 sections
         1. General
         2. Advanced Project options
@@ -27,7 +27,7 @@ This file covers
 
 * Once the pipeline job is completed, can view the output --> build history --> click on the success/failed button beside the job number (eg: #1).
 
-* To view the individual stage --> click on 'stages' --> click on any stage to see the respective stage status/output
+* To view the individual stage --> click on `stages` --> click on any stage to see the respective stage status/output
 
 ## pipeline with code analysis and Quality gates
 The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which is to check below aspects to improve the code quality
@@ -43,22 +43,22 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
 ### Integrating Sonar Qube with Jenkins
 * Make sure the Jenkins and SonarQube servers are up and running
 * Login to Jenkins and SonarQube (in browser -- refer [_Jenkins and sonar qube setup in CI-pipeline-flow md file_](CI-pipeline-flow.md))
-* Jenkins Dashboard --> manage jenkins --> Tools --> Scroll down to find **SonarQube Scanner Installations** --> Click 'Add SonarQube Scanner'
+* Jenkins Dashboard --> manage jenkins --> Tools --> Scroll down to find **SonarQube Scanner Installations** --> Click `Add SonarQube Scanner`
     - Give a name (this name will be used in pipeline code)
     - version --> 6.2.1.4610 (for vprofile)
     - Save
 * The SonarQube Scanner will scan the code and then we need to upload the results to SonarQube server. For this we need to store the SonarQube server details in Jenkins.
-    - Jenkins Dashboard --> manage --> system --> Scroll down to find **SonarQube servers** --> tick 'Envriornment variables' and click 'Add SonarQube' under SonarQube installations
+    - Jenkins Dashboard --> manage --> system --> Scroll down to find **SonarQube servers** --> tick `Envriornment variables` and click `Add SonarQube` under SonarQube installations
         1. Give a name (to identify the SonarQube server)
         2. URL (for this practice we use private IP of SonrQube server but in real time it can be a DNS name)
-        > eg: http://privateIP:port
+        > eg: `http://<privateIP>:port`
             
-        >For this practice, nginx runs on SonarQube server which listens on port 80 (default port of http) and redirects to SonarQube on port 9000
+        > For this practice, nginx runs on SonarQube server which listens on port 80 (default port of http) and redirects to SonarQube on port 9000
         3. Server Authentication Token
             - Get the autehntication token from SonarQube service --> MyAccount --> security --> generate a token and copy it
-            - Now click on 'Add' --> select Jenkins (credentials provider)
-                * Under 'Kind' select 'Secret text'
-                * store the token in 'Secret'
+            - Now click on `Add` --> select Jenkins (credentials provider)
+                * Under `Kind` select `Secret text`
+                * store the token in `Secret`
                 * For Id, give a name to identify it as SonarQube token
                 * add a description
                 * Click on Add to save the token
@@ -69,11 +69,11 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
 #### Pipeline with checkstyle code analysis
 * Pipeline code with checkstyle code analysis [_Jenkinsfile with checkstyle code analysis_](Jenkinsfile-with-checkstyle-codeAnalysis)
 
-    * In Jenkins --> '+ New Item' --> Give a name and select item type as 'pipeline' and click ok
+    * In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
         - Under Pipeline --> Definition --> paste the pipeline script
         - save --> build now
         - Build history -->  click on the success(/failed) button beside the job number (eg: #1) for job details. It will open console output.
-            * Change to worksapces --> click on the path --> 'target' --> can see the 'checkstyle-result.xml' output of code analysis
+            * Change to worksapces --> click on the path --> `target` --> can see the `checkstyle-result.xml` output of code analysis
             > xml format not easy to read so we send this result to sonar dashboard to get the report analysis
 
 #### Pipeline with SonarQube code analysis
@@ -82,7 +82,7 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
 
 * Pipeline code with SonarQube code analysis [_Jenkinsfile with SonarQube code analysis_](Jenkinsfile-with-sonarQube-codeAnalysis)
 
-    * In Jenkins --> '+ New Item' --> Give a name and select item type as 'pipeline' and click ok
+    * In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
         - Under Pipeline --> Definition --> paste the pipeline script
         - save --> build now
         - Build history -->  click on the success(/failed) button beside the job number (eg: #1) for job details. It will open console output --> scroll down, can see Analysis successful and the SonarQube url to find the results
@@ -95,7 +95,7 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
 * Once the custom quality gate is selected, SonarQube will contact Jenkins using webhook and send the result through it. We need to create a webhook for this.
     - In SonarQube --> projects --> click on the project --> Project Settings --> webhooks --> Create
         - Name --> for webhook
-        - URL --> http>//(privateIP of jenkins server):8080/sonarqube-webhook
+        - URL --> `http>//<privateIP of jenkins server>:8080/sonarqube-webhook`
         - create
 
 * To use the custom qulaity gate, we need to add another stage for it in pipeline [_Jenkinsfile with SonarQube code analysis and Quality gate_](Jenkinsfile-with-sonarQube-codeAnalysis-qualityGate)
@@ -121,3 +121,6 @@ There are different kinds of repositories like Maven to store Maven dependencies
 ### Setting up Nexus repository
 * Make sure the Nexus server is up and running. Access the service using its IP on port 8081 (refer [_Nexus set up in CI-pipeline-flow md file_](CI-pipeline-flow.md))
     - Settings --> Repositories (there will be some default repositories) --> click on `create repository`
+    - Under `Recipe` --> select `maven2(hosted)` (for our use case as we need to store the artifact)
+    > Under 'Recipe' we can find different repositories each having 3 categories --> `group, hosted and proxy`. If the use case is to download dependencies from the repository then we can select proxy. Group is to group both hosted and prxy repositories together.
+    - After selecting 'maven2(hosted)' --> give a name to repo --> scroll down and click `create repository`
