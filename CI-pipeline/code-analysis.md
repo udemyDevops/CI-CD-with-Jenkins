@@ -34,7 +34,7 @@ In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing an
         4. Save
     - Make sure the SonarQube server SG has a rule to allow port 80 from Jenkins server SG
 
-* Pipeline code with code analysis [_Jenkinsfile with code analysis_](Jenkinsfile-codeAnalysis)
+* Pipeline code with code analysis [_Jenkinsfile with code analysis_](Jenkinsfile-with-codeAnalysis)
 
 * In Jenkins --> '+ New Item' --> Give a name and select item type as 'pipeline' and click ok
     - Under Pipeline --> Definition --> paste the pipeline script
