@@ -30,14 +30,14 @@ pipeline {
 
 	    stage('Build'){
 	        steps{
-				// mvn install will execute all the phases including the tests done in previous stage, so we can skip the test phase
+				// mvn install will execute all the phases including the tests done in previous stage, so using the skipTests option the test will be skipped as the test is already done in previous stage (in this example)
 	           sh 'mvn install -DskipTests' // any maven option to pass put -D and without space add the option
 	        }
 
 	        post {
 	           success {
 	              echo 'Now Archiving it...'
-	              archiveArtifacts artifacts: '**/target/*.war'  // archiveArtifacts is the plugin name
+	              archiveArtifacts artifacts: '**/target/*.war'  // archiveArtifacts is the plugin name and 'artifacts:' is the parameter/option and the path is its value
 	           }
 	        }
 	    }
