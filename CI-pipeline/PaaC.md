@@ -30,11 +30,13 @@ This file covers
 * To view the individual stage --> click on `stages` --> click on any stage to see the respective stage status/output
 
 ## pipeline with code analysis and Quality gates
-The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which is to check below aspects to improve the code quality
-- the code against the best practices
-- vulnerabilites (like top 10 OWASP - Open Worldwide Application Security Project)
-- functional errors (bugs) before deployment
-- etc..
+* The next step is code analysis which is to check below aspects to improve the code quality
+    - the code against the best practices
+    - vulnerabilites (like top 10 OWASP - Open Worldwide Application Security Project)
+    - functional errors (bugs) before deployment
+    - etc..
+    
+![CI-pipeline-flow](CI-pipeline-flow.png) 
 
 * Some tools for code analysis -- Checkstyle, Cobertura, mstest, owasp, SonarQube Scanner, etc. For this practice we'd be using Checkstyle and SonarQube
 
