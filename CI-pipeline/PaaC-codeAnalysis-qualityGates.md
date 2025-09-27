@@ -63,7 +63,8 @@ In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing an
 * Once the custom quality gate is selected, SonarQube will contact Jenkins using webhook and send the result through it. We need to create a webhook for this.
     - In SonarQube --> projects --> click on the project --> Project Settings --> webhooks --> Create
         - Name --> for webhook
-        - URL --> http>//<privateIP of jenkins server>:8080/sonarqube-webhook
+        - URL --> http>//(privateIP of jenkins server):8080/sonarqube-webhook
+        - create
 
 * To use the custom qulaity gate, we need to add another stage for it in pipeline
 
