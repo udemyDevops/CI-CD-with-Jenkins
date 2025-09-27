@@ -10,4 +10,37 @@ In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing an
 
 ### Integrating Sonar Qube with Jenkins
 * Make sure the Jenkins and SonarQube servers are up and running
-* Login to Jenkins and SonarQube (in browser -- [_CI-pipeline-flow md file_](CI-pipeline-flow.md)) 
+* Login to Jenkins and SonarQube (in browser -- refer [_CI-pipeline-flow md file_](CI-pipeline-flow.md))
+* Jenkins Dashboard --> manage jenkins --> Tools --> Scroll down to find **SonarQube Scanner Installations** --> Click 'Add SonarQube Scanner'
+    - Give a name (this name will be used in pipeline code)
+    - version --> 6.2.1.4610 (for vprofile)
+    - Save
+* The SonarQube Scanner will scan the code and then we need to upload the results to SonarQube server. For this we need to store the SonarQube server details in Jenkins.
+    - Jenkins Dashboard --> manage --> system --> Scroll down to find **SonarQube servers** --> tick 'Envriornment variables' and click 'Add SonarQube' under SonarQube installations
+        1. Give a name (to identify the SonarQube server)
+        2. URL (for this practice we use private IP of SonrQube server but in real time it can be a DNS name)
+        > eg: http://privateIP:port
+            
+        >For this practice, nginx runs on SonarQube server which listens on port 80 (default port of http) and redirects to SonarQube on port 9000
+        3. Server Authentication Token
+            - Get the autehntication token from SonarQube service --> MyAccount --> security --> generate a token and copy it
+            - Now click on 'Add' --> select Jenkins (credentials provider)
+                * Under 'Kind' select 'Secret text'
+                * store the token in 'Secret'
+                * For Id, give a name to identify it as SonarQube token
+                * add a description
+                * Click on Add to save the token
+            - From the drop down select the saved token
+        4. Save
+    - Make sure the SonarQube server SG has a rule to allow port 80 from Jenkins server SG
+
+* Pipeline code with code analysis [_Jenkinsfile with code analysis_](Jenkinsfile-codeAnalysis)
+
+* In Jenkins --> '+ New Item' --> Give a name and select item type as 'pipeline' and click ok
+    - Under Pipeline --> Definition --> paste the pipeline script
+    - save --> build now
+    - Build history -->  click on the success/failed button beside the job number (eg: #1) for job details. It will open console output.
+        * Change to worksapces --> click on the path --> 'target' --> can see the 'checkstyle-result.xml' output of code analysis
+        > xml format not easy to read so we send this result to sonar dashboard to get the report analysis
+
+> As we install sonar tool in jenkins, we can also use the SonarQube documentation to use the plugin in pileine (https://docs.sonarsource.com/sonarqube-server/9.8/analyzing-source-code/scanners/jenkins-extension-sonarqube)
