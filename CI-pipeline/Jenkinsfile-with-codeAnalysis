@@ -1,3 +1,4 @@
+// change the file name to Jenkinsfile before using this
 pipeline {
 	agent any  // run on any agent including master
 
