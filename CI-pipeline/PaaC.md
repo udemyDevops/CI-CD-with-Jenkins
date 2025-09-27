@@ -120,3 +120,4 @@ There are different kinds of repositories like Maven to store Maven dependencies
 
 ### Setting up Nexus repository
 * Make sure the Nexus server is up and running. Access the service using its IP on port 8081 (refer [_Nexus set up in CI-pipeline-flow md file_](CI-pipeline-flow.md))
+    - Settings --> Repositories (there will be some default repositories) --> click on `create repository`

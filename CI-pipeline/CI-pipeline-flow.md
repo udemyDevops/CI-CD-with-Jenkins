@@ -33,7 +33,7 @@
 
     1. Check the nexus service status --> 'systemctl status nexus'
     2. Check java version --> 'java -version'
-    3. Initial password of nexus --> '/opt/nexus/sonatype-work/nexus3/admin,password' (path --> can get when we sign-in in the browser --> <server IP>:8081)
+    3. Initial password of nexus --> '/opt/nexus/sonatype-work/nexus3/admin,password' (path --> can get when we sign-in from the browser --> <server IP>:8081)
 
 
 * **Sonar** --> [_sonar-script_](userData/sonar-setup.sh)  (will setup 3 services --> sonarqube, postgresql and nginx)
