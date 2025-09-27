@@ -45,7 +45,7 @@
 
 > sonarqube service takes more resource, so need to make some OS level changes at path '/etc/sysctl.conf' and '/etc/security/limits.conf'. Changes to these files needs the server reboot (reboot command included at the end of script)
 
-> Access sonarqube in the browser --> <server IP>. username and password is 'admin' --> change it after login 
+> Access sonarqube in the browser --> server IP  --> username and password is 'admin' --> change it after login 
 
 
 * **Jenkins** --> [_jenkins-script_](userData/jenkins-setup.sh)

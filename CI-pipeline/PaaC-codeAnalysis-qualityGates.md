@@ -66,5 +66,5 @@ In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing an
         - URL --> http>//(privateIP of jenkins server):8080/sonarqube-webhook
         - create
 
-* To use the custom qulaity gate, we need to add another stage for it in pipeline
+* To use the custom qulaity gate, we need to add another stage for it in pipeline [_Jenkinsfile with SonarQube code analysis and Quality gate_](Jenkinsfile-with-sonarQube-codeAnalysis-qualityGate)
 
