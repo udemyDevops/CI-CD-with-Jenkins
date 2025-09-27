@@ -1,6 +1,6 @@
 ## Flow of Continuous integration pipeline
 
-![CI-flow](CI-pipeline-flow.png)
+![CI-pipeline-flow](CI-pipeline-flow.png)
 
 ## Steps to setup CI pipeline
 1. Jenkins server
