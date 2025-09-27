@@ -1,4 +1,35 @@
-In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing and build is covered. The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which is to check below aspects to improve the code quality
+# Pipeline as a code
+This file covers
+- [sample pipeline with fetching coed, test and build stages](#sample-pipeline-with-fetching-code-test-and-build) 
+- [pipeline with code analysis and Quality gates](#pipeline-with-code-analysis-and-quality-gates)
+    - [Integrating Sonar Qube with Jenkins](#integrating-sonar-qube-with-jenkins)
+        - [_Pipeline with checkstyle code analysis_](#pipeline-with-checkstyle-code-analysis)
+        - [_Pipeline with SonarQube code analysis_](#pipeline-with-sonarqube-code-analysis)
+    - [Pipeline with Quality Gate](#pipeline-with-quality-gate)
+
+## Sample pipeline with fetching code, test and Build
+* To automate the pipeline setup with a file called --> 'Jenkinsfile'
+    ![paac-intro](paac-intro.png)
+
+[_sample-file_](Jenkinsfile)
+> doc: https://www.jenkins.io/doc/book/pipeline/
+
+* In Jenkins --> '+ New Item' --> Give a name and select item type as 'pipeline' and click ok
+    - has 3 sections
+        1. General
+        2. Advanced Project options
+        3. Pipeline
+            - Under Pipeline --> Definition --> 2 options
+                1. pipeline script (paste the pipeline script)
+                2. pipeline script from scm (fetch the file from a given path in repo)
+            - Save --> Build now
+
+* Once the pipeline job is completed, can view the output --> build history --> click on the success/failed button beside the job number (eg: #1).
+
+* To view the individual stage --> click on 'stages' --> click on any stage to see the respective stage status/output
+
+## pipeline with code analysis and Quality gates
+The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which is to check below aspects to improve the code quality
 - the code against the best practices
 - vulnerabilites (like top 10 OWASP - Open Worldwide Application Security Project)
 - functional errors (bugs) before deployment
@@ -59,7 +90,7 @@ In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing an
         - In SonarQube --> Quality Gates --> create --> give a name and save --> by default the lock is applied on conditions in the saved QG --> click unlock editing --> click add conditions, to add more
         - To make sure the project uses the custom QG --> projects --> click on the project --> Project Settings --> Quality Gate --> Change from using default QG to a specific one and select the custom QG --> save
 
-#### Pipeline with Quality Gate
+### Pipeline with Quality Gate
 * Once the custom quality gate is selected, SonarQube will contact Jenkins using webhook and send the result through it. We need to create a webhook for this.
     - In SonarQube --> projects --> click on the project --> Project Settings --> webhooks --> Create
         - Name --> for webhook
