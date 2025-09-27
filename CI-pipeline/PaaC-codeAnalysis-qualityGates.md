@@ -67,4 +67,9 @@ In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing an
         - create
 
 * To use the custom qulaity gate, we need to add another stage for it in pipeline [_Jenkinsfile with SonarQube code analysis and Quality gate_](Jenkinsfile-with-sonarQube-codeAnalysis-qualityGate)
+    - In Jenkins --> update the pipeline code in the same pipeline used for SonarQube code analysis above
+        - Go to the pipeline used for SonarQube code analysis --> configure --> update the script (Under Pipeline --> Definition --> paste the pipeline script)
+        > before saving this, make sure the jenkins server SG has a rule to allow port 8080 from SonarQube SG
+        - save --> build now
+        - after the job is completed, if the quality gate satge fails due to quality gate error the project in the SonarQube will also show as Failed
 
