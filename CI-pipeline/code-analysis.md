@@ -43,4 +43,5 @@ In [_PaaC-intro md file_](PaaC-intro.md) the stages of fetching code, testing an
         * Change to worksapces --> click on the path --> 'target' --> can see the 'checkstyle-result.xml' output of code analysis
         > xml format not easy to read so we send this result to sonar dashboard to get the report analysis
 
+* Documentation to use SonarQube plugin --> https://www.jenkins.io/doc/pipeline/steps/sonar/
 > As we install sonar tool in jenkins, we can also use the SonarQube documentation to use the plugin in pileine (https://docs.sonarsource.com/sonarqube-server/9.8/analyzing-source-code/scanners/jenkins-extension-sonarqube)
