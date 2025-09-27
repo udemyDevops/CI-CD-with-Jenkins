@@ -6,6 +6,7 @@ This file covers
         - [_Pipeline with checkstyle code analysis_](#pipeline-with-checkstyle-code-analysis)
         - [_Pipeline with SonarQube code analysis_](#pipeline-with-sonarqube-code-analysis)
     - [Pipeline with Quality Gate](#pipeline-with-quality-gate)
+- [pipeline with Nexus](#pipeline-with-nexus)
 
 ## Sample pipeline with fetching code, test and Build
 * To automate the pipeline setup with a file called --> 'Jenkinsfile'
@@ -41,7 +42,7 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
 
 ### Integrating Sonar Qube with Jenkins
 * Make sure the Jenkins and SonarQube servers are up and running
-* Login to Jenkins and SonarQube (in browser -- refer [_CI-pipeline-flow md file_](CI-pipeline-flow.md))
+* Login to Jenkins and SonarQube (in browser -- refer [_Jenkins and sonar qube setup in CI-pipeline-flow md file_](CI-pipeline-flow.md))
 * Jenkins Dashboard --> manage jenkins --> Tools --> Scroll down to find **SonarQube Scanner Installations** --> Click 'Add SonarQube Scanner'
     - Give a name (this name will be used in pipeline code)
     - version --> 6.2.1.4610 (for vprofile)
@@ -104,3 +105,18 @@ The next step is code analysis (![CI-pipeline-flow](CI-pipeline-flow.png)) which
         - save --> build now
         - after the job is completed, if the quality gate satge fails due to quality gate error the project in the SonarQube will also show as Failed
 
+
+## pipeline with Nexus
+The next step is to upload the artifacts to Nexus repository. We'd also use it to version the artifacts in case of multiple artifacts. Once the artifact is stored in the repository the OPs team or a script can fetch the artifact and deploy it to the server
+![CI-pipeline-flow](CI-pipeline-flow.png)
+
+![Jenkins-Nexus-integration](Jenkins-Nexus.png)
+> Nexus sonatype is a software repository to store and retrieve softwares. Also these repositories are used to download dependencies like when we run Mvn install it downloads dependencies from the internet.
+But you can point maven to download dependencies from your own repository like Nexus repository.
+But in this example we will see how to store our artifact to the repository.
+There are different kinds of repositories like Maven to store Maven dependencies, apt to store Debian packages, or yum packages for RPMs (redhat based systems), NuGet package manager for dotnet, npm package manager for JavaScript (Node.js), Docker to store and retrieve Docker images.
+
+![Nexus](about-Nexus.png)
+
+### Setting up Nexus repository
+* Make sure the Nexus server is up and running. Access the service using its IP on port 8081 (refer [_Nexus set up in CI-pipeline-flow md file_](CI-pipeline-flow.md))
