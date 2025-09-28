@@ -9,15 +9,15 @@ pipeline {
 
 
     environment { // update the values
-        registryCredential = 'ecr:us-east-1:awscreds' // credential name stored in jenkins in this format with AWS access key which the docker plugin will use to login to AWS
-        imageName = "716657688884.dkr.ecr.us-east-1.amazonaws.com/vprofileappimg"
-        vprofileRegistry = "https://716657688884.dkr.ecr.us-east-1.amazonaws.com"
+        registryCredential = 'ecr:us-east-1:awscreds' // 'awscreds' is the credential name stored in jenkins and should be passed in this format (<service>:<region of service>:<credentialname>) which the docker plugin will use to login to AWS
+        imageName = "716657688884.dkr.ecr.us-east-1.amazonaws.com/vprofileappimg" // URI of ECR repository
+        vprofileRegistry = "https://716657688884.dkr.ecr.us-east-1.amazonaws.com" // https://<ECR URI without the repository name>
     }
-  stages {
-   
+    stages {
+    
         stage('Fetch code') {
             steps {
-               git branch: 'docker', url: 'https://github.com/hkhcoder/vprofile-project.git'
+              git branch: 'docker', url: 'https://github.com/hkhcoder/vprofile-project.git'
               //  git branch: 'main', url: 'https://github.com/udemyDevops/CI-CD-with-Jenkins.git'
             }
 
@@ -26,14 +26,14 @@ pipeline {
 
         stage('Build'){
             steps{
-               sh 'mvn install -DskipTests'
+              sh 'mvn install -DskipTests'
             }
 
             post {
-               success {
+              success {
                   echo 'Now Archiving it...'
                   archiveArtifacts artifacts: '**/target/*.war'
-               }
+              }
             }
         }
 
@@ -56,13 +56,13 @@ pipeline {
             steps {
               withSonarQubeEnv('sonarserver') {
                 sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
-                   -Dsonar.projectName=vprofile \
-                   -Dsonar.projectVersion=1.0 \
-                   -Dsonar.sources=src/ \
-                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+                  -Dsonar.projectName=vprofile \
+                  -Dsonar.projectVersion=1.0 \
+                  -Dsonar.sources=src/ \
+                  -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+                  -Dsonar.junit.reportsPath=target/surefire-reports/ \
+                  -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+                  -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
               }
             }
         }
@@ -77,12 +77,14 @@ pipeline {
 
         stage('Build App Image') {
           steps {
-       
+      
             script {
                 dockerImage = docker.build( imageName + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
                 // dockerImage = docker.build( imageName + ":$BUILD_NUMBER", "./Docker-CI-CD/Docker-files/app/multistage/")
                 // here docker is the plugin which needs to be installed in jenkins
                 // build is the function and 'imageName' is variable declared in environment block above
+                // $BUILD_NUMBER to add the tag for docker image
+                // ./Docker-files/app/multistage/ --> path of Dockerfile
             }
           }
     
@@ -94,7 +96,7 @@ pipeline {
               docker.withRegistry( vprofileRegistry, registryCredential ) {
                 dockerImage.push("$BUILD_NUMBER")
                 dockerImage.push('latest')
-                 // vprofileRegistry, registryCredential are variables declared in environment block above
+                // vprofileRegistry, registryCredential are variables declared in environment block above
                 // docker is plugin and 'withRegistry' and 'push' are functions
               }
             }
@@ -106,6 +108,7 @@ pipeline {
                 sh 'docker rmi -f $(docker images -a -q)'
             }
         }
+        // The image is uploaded to ECR but also exist in Jenkins, so we need to another stage to remove the image from Jenkins after the upload to ECR is completed
 
-  }
+    }
 }
