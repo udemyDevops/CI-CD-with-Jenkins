@@ -1,4 +1,4 @@
-// change the file name to Jenkinsfile before using this
+// change the file name to Jenkinsfile and update the values in stages before using this
 pipeline {
 	agent any  // run on any agent including master
 

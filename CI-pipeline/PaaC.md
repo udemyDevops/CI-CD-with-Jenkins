@@ -7,6 +7,8 @@ This file covers
         - [_Pipeline with SonarQube code analysis_](#pipeline-with-sonarqube-code-analysis)
     - [Pipeline with Quality Gate](#pipeline-with-quality-gate)
 - [pipeline with Nexus](#pipeline-with-nexus)
+    - [Setting up Nexus repository](#setting-up-nexus-repository)
+    - [pipeline with Nexus stage](#pipeline-with-nexus-stage)
 
 ## Sample pipeline with fetching code, test and Build
 * To automate the pipeline setup with a file called --> `Jenkinsfile`
@@ -69,10 +71,10 @@ This file covers
     - Make sure the SonarQube server SG has a rule to allow port 80 from Jenkins server SG
 
 #### Pipeline with checkstyle code analysis
-* Pipeline code with checkstyle code analysis [_Jenkinsfile with checkstyle code analysis_](Jenkinsfile-with-checkstyle-codeAnalysis)
+* Pipeline code with checkstyle code analysis [_Jenkinsfile with checkstyle code analysis_](Jenkinsfile-with-checkstyle-codeAnalysis). Change the file name to Jenkinsfile and update the values in stages before using this.
 
     * In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
-        - Under Pipeline --> Definition --> paste the pipeline script
+        - Under Pipeline --> Definition --> Pipeline script --> paste the pipeline script
         - save --> build now
         - Build history -->  click on the success(/failed) button beside the job number (eg: #1) for job details. It will open console output.
             * Change to worksapces --> click on the path --> `target` --> can see the `checkstyle-result.xml` output of code analysis
@@ -82,10 +84,10 @@ This file covers
 * Documentation to use SonarQube plugin --> https://www.jenkins.io/doc/pipeline/steps/sonar/
     > As we install sonar tool in jenkins, we can also use the SonarQube documentation to use the plugin in pileine (https://docs.sonarsource.com/sonarqube-server/9.8/analyzing-source-code/scanners/jenkins-extension-sonarqube)
 
-* Pipeline code with SonarQube code analysis [_Jenkinsfile with SonarQube code analysis_](Jenkinsfile-with-sonarQube-codeAnalysis)
+* Pipeline code with SonarQube code analysis [_Jenkinsfile with SonarQube code analysis_](Jenkinsfile-with-sonarQube-codeAnalysis). Change the file name to Jenkinsfile and update the values in stages before using this.
 
     * In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
-        - Under Pipeline --> Definition --> paste the pipeline script
+        - Under Pipeline --> Definition --> Pipeline script --> paste the pipeline script
         - save --> build now
         - Build history -->  click on the success(/failed) button beside the job number (eg: #1) for job details. It will open console output --> scroll down, can see Analysis successful and the SonarQube url to find the results
     * In SonarQube --> projects --> can see the project (vprofile -- project name given in the sonar scanner stage for this practice) --> click on the project to see the results
@@ -100,9 +102,9 @@ This file covers
         - URL --> `http>//<privateIP of jenkins server>:8080/sonarqube-webhook`
         - create
 
-* To use the custom qulaity gate, we need to add another stage for it in pipeline [_Jenkinsfile with SonarQube code analysis and Quality gate_](Jenkinsfile-with-sonarQube-codeAnalysis-qualityGate)
+* To use the custom qulaity gate, we need to add another stage for it in pipeline [_Jenkinsfile with SonarQube code analysis and Quality gate_](Jenkinsfile-with-sonarQube-codeAnalysis-qualityGate). Change the file name to Jenkinsfile and update the values in stages before using this.
     - In Jenkins --> update the pipeline code in the same pipeline used for SonarQube code analysis above
-        - Go to the pipeline used for SonarQube code analysis --> configure --> update the script (Under Pipeline --> Definition --> paste the pipeline script)
+        - Go to the pipeline used for SonarQube code analysis --> configure --> update the script (Under Pipeline --> Definition --> Pipeline script --> paste the pipeline script)
             > before saving this, make sure the jenkins server SG has a rule to allow port 8080 from SonarQube SG
         - save --> build now
         - after the job is completed, if the quality gate satge fails due to quality gate error the project in the SonarQube will also show as Failed
@@ -126,3 +128,43 @@ There are different kinds of repositories like Maven to store Maven dependencies
     - Under `Recipe` --> select `maven2(hosted)` (for our use case as we need to store the artifact)
         > Under 'Recipe' we can find different repositories each having 3 categories --> `group, hosted and proxy`. If the use case is to download dependencies from the repository then we can select proxy. Group is to group both hosted and prxy repositories together.
     - After selecting 'maven2(hosted)' --> give a name to repo --> scroll down and click `create repository`
+
+* Now add `credentials` for Nexus repo in Jenkins
+    - Jenkins Dashboard --> manage jenkins --> credentials --> under `stores scoped to jenkins` click on `system` --> Global credentials (unrestriced) --> click on `Add credentials`
+        - For `kind`, select `Username with password`
+        - Scope --> Global
+        - provide username and password of Nexus service
+        - Id --> giva a name to identify with Nexus credentials (this name will be used in pipeline code)
+        - add Description
+        - click on `create`
+
+### pipeline with Nexus stage
+* We need to add another stage in pipeline to use Nexus and upload artifact.
+
+> Reference documentation
+
+> Github --> https://github.com/jenkinsci/nexus-artifact-uploader-plugin
+    
+> example from Github --> https://github.com/jenkinsci/nexus-artifact-uploader-plugin#jenkins-pipeline-example
+
+* To use variables from Jenkins in the pipeline, for example we use `BUILD_TIMESTAMP` in pipeline
+    - To set the value for this variable, Jenkins Dashboard --> manage jenkins --> `system` (or) `configure system` --> scroll down to find `Build Timestamp`
+        - Timezone (default Etc/UTC, can change it as required)
+        - Pattern --> yy-MM-dd_HH-mm
+        - click on `Save`
+
+* Pipeline code with the stage to upload artifact to Nexus repo [_Jenkinsfile with Nexus repo to store artifact_](Jenkinsfile-with-NexusRepo-to-store-artifact). Change the file name to Jenkinsfile and update the values in stages before using this.
+
+    * In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
+        - Under Pipeline --> Definition --> Pipeline script --> paste the pipeline script
+        - save --> build now
+
+        > If the job fails due to agent availability or node health issue (cuz of no disk space)
+
+            - Can check it in Jenkins Dashboard --> manage jenkins --> nodes
+            - to free up the space --> ssh to jenkins server --> 'sudo -i' --> 'cd /var/lib/jenkins/workspace/ ' --> 'rm -rf * --> 'systemctl restart jenkins'
+            - check the node health and run the job again 
+            - can be done clearing the workspace of the pipelines but takes more time
+    
+    * Once the job is completed, can see the artifacts in Nexus repo
+        - Nexus --> Browse --> click on the custom repository used
