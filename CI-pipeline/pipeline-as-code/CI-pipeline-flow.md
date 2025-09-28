@@ -22,7 +22,7 @@
 
     https://github.com/udemyDevops/CI-CD-with-Jenkins --> CI-pipeline --> userData
 
-* **Nexus** --> [_nexus-script_](userData/nexus-setup.sh)
+* **Nexus** --> [_nexus-script_](../userData/nexus-setup.sh)
     - Amazon linux 2023 (t2.medium)
     - Security Group rules
         * Allow ssh port 22 from client
@@ -36,7 +36,7 @@
     3. Initial password of nexus --> '/opt/nexus/sonatype-work/nexus3/admin,password' (path --> can get when we sign-in from the browser --> <server IP>:8081)
 
 
-* **Sonar** --> [_sonar-script_](userData/sonar-setup.sh)  (will setup 3 services --> sonarqube, postgresql and nginx)
+* **Sonar** --> [_sonar-script_](../userData/sonar-setup.sh)  (will setup 3 services --> sonarqube, postgresql and nginx)
     - Ubuntu 24 (t2.medium)
     - Security Group rules
         * Allow ssh port 22 from client
@@ -48,7 +48,7 @@
 > Access sonarqube in the browser --> server IP  --> username and password is 'admin' --> change it after login 
 
 
-* **Jenkins** --> [_jenkins-script_](userData/jenkins-setup.sh)
+* **Jenkins** --> [_jenkins-script_](../userData/jenkins-setup.sh)
     - Ubuntu
     - Security Group rules
         * Allow ssh port 22 from client

@@ -83,7 +83,7 @@ pipeline {
 					protocol: 'http',
 					nexusUrl: '<privateIP of Nexus server>:8081',	// update the IP
 					groupId: 'QA',	// provide groupId if any, otherwise give a sample ID like QA
-					version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",	// should be dynamic as we need different version for every artifact, can use variables like timestamp, buildId from Jenkins. BUILD_ID is in-built variable in Jenkins. To use BUILD_TIMESTAMP make sure the tool is installed in Jenkins (refer 'CI-CD-with-Jenkins/CI-pipeline/CI-pipeline-flow.md' --> plugins) and also set the value for the time stamp variable in Jenkis system configuration (refer 'CI-CD-with-Jenkins/CI-pipeline/PaaC.md' --> pipeline with Nexus stage)
+					version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",	// should be dynamic as we need different version for every artifact, can use variables like timestamp, buildId from Jenkins. BUILD_ID is in-built variable in Jenkins. To use BUILD_TIMESTAMP make sure the tool is installed in Jenkins (refer 'CI-CD-with-Jenkins/CI-pipeline/pipeline-as-code/CI-pipeline-flow.md' --> plugins) and also set the value for the time stamp variable in Jenkis system configuration (refer 'CI-CD-with-Jenkins/CI-pipeline/pipeline-as-code/PaaC.md' --> pipeline with Nexus stage)
 					repository: 'RepositoryName',	// name of the repo created in Nexus
 					credentialsId: 'CredentialsId',	// credential Id/name given to Nexus credentials in Jenkins
 					artifacts: [
