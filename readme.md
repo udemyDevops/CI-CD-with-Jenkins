@@ -3,10 +3,13 @@
 * This covers the below sections
     - [_Basics in Jenkins_](Basics)
     - [_CI piepline flow and pipeline code_](CI-pipeline)
+        - The above sections cover complete CI pipeline but the 
+            - Start (not automatic but manual trigger) --> if a commit is made to the repo it should trigger the job automatically
+            - End --> to get notifications about the pipeline job, whether passed/failed. Ther are multiple plugins available in jenkins, using them we can send notifications to different communication platforms/tools like slack, microsoft teams, etc. Refer [_md file to setup notification_](CI-pipeline/pipeline-notification.md)
+    - [_Docker CICD_](Docker-CI-CD)
+        - In Prevoius sections the artifacts are published in CI pipeline. Here we build the docker images, which contains artifacts, and publish to container registry using CI pipeline
+    
 
-* The above sections cover complete CI pipeline but the 
-    - Start (not automatic but manual trigger) --> if a commit is made to the repo it should trigger the job automatically
-    - End --> to get notifications about the pipeline job, whether passed/failed. Ther are multiple plugins available in jenkins, using them we can send notifications to different communication platforms/tools like slack, microsoft teams, etc. Refer [_md file to setup notification_](CI-pipeline/pipeline-notification.md)
 
 ### Jobs in Jenkins
 * Freestyle
