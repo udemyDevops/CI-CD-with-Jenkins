@@ -1,6 +1,6 @@
 # Pipeline as a code
 This file covers
-- [sample pipeline with fetching coed, test and build stages](#sample-pipeline-with-fetching-code-test-and-build) 
+- [sample pipeline with fetching code, test and build stages](#sample-pipeline-with-fetching-code-test-and-build) 
 - [pipeline with code analysis and Quality gates](#pipeline-with-code-analysis-and-quality-gates)
     - [Integrating Sonar Qube with Jenkins](#integrating-sonar-qube-with-jenkins)
         - [_Pipeline with checkstyle code analysis_](#pipeline-with-checkstyle-code-analysis)
@@ -126,7 +126,7 @@ There are different kinds of repositories like Maven to store Maven dependencies
 * Make sure the Nexus server is up and running. Access the service using its IP on port 8081 (refer [_Nexus set up in CI-pipeline-flow md file_](CI-pipeline-flow.md))
     - Settings --> Repositories (there will be some default repositories) --> click on `create repository`
     - Under `Recipe` --> select `maven2(hosted)` (for our use case as we need to store the artifact)
-        > Under 'Recipe' we can find different repositories each having 3 categories --> `group, hosted and proxy`. If the use case is to download dependencies from the repository then we can select proxy. Group is to group both hosted and prxy repositories together.
+        > Under 'Recipe' we can find different repositories each having 3 categories --> `group, hosted and proxy`. If the use case is to download dependencies from the repository then we can select proxy. Group is to group both hosted and proxy repositories together.
     - After selecting 'maven2(hosted)' --> give a name to repo --> scroll down and click `create repository`
 
 * Now add `credentials` for Nexus repo in Jenkins
