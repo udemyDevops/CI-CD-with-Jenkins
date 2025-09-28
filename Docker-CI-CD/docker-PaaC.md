@@ -1,9 +1,9 @@
 
-### Docker CI flow
+## Docker CI flow
 
 ![alt text](Docker-CI-flow.png)
 
-### Prerequisites for docker PaaC
+## Prerequisites for docker PaaC
 * AWS
     - IAM user with Access keys
     - ECR (container registry)
