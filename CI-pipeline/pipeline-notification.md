@@ -7,7 +7,7 @@
     - We can see the token under 'step-3' or scroll down till Integration settings to see or regenrate token
     - Copy the token and click on `save settings`
     - Now copy the slack workspace name from url (click on the workspace --> can see worksapce name and url)
-        > For example, if the workspace name is 'sprojex' then the url look like 'https://sprojexworkspace.slack.com'. For jenkins we need to give 'sprojexworkspace'
+        > For example, if the workspace name is 'abcdef' then the url look like 'https://abcdefworkspace.slack.com'. For jenkins we need to give 'sprojexworkspace'
     - In Jenkins --> manage jenkins --> system --> search (ctr+F) for 'slack'
         - workspace -- give the workspace got from url (eg: sprojexworkspace)
         - Under Token, click on `Add` --> select Jenkins (credentials provider)
