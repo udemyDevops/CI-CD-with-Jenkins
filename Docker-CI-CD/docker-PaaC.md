@@ -1,5 +1,11 @@
 
 ## Docker CI flow
+* [_Prerequisites for docker PaaC_](#prerequisites-for-docker-paac)
+* [_Steps for docker CI in Jenkins](#steps-for-docker-ci-in-jenkins)
+    - [_Installing docker engine and aws cli in jenkins server_](#install-docker-engine-and-aws-cli)
+    - [_Creating IAM user and ECR in AWS_](#creating-iam-user-and-ecr-in-aws)
+    - [_Installing plugins and storing credentials in jenkins_](#install-the-plugins-and-store-credentials-in-jenkins)
+* [_Pipeline for docker CI_](#pipeline-for-docker-ci)
 
 ![alt text](Docker-CI-flow.png)
 
@@ -127,3 +133,32 @@ reboot
 
     > Once the job is completed, can see the image in ECR.
     > The image is uploaded to ECR but also exist in Jenkins, so we need to another stage to remove the image from Jenkins after the upload to ECR is completed (covered in the pipeline code)
+
+### Pipeline for Docker CICD
+![alt text](Docker-CICD-flow.png)
+
+* It is an extension of CI pipeline to also include the delivery of code (deployment) to the Container hosting platform
+    - Docker engine (local development / testing -- install docker engine and run containers using docker commands, No HA, self-healing, etc. required to run in Stage and prod environment)
+    - Kubernetes
+    - ECS (Elastic Container Service - for this exercise)
+
+* Prerequisites:
+    - ECS cluster and service
+    - Plugin --> pipeline: aws steps
+
+#### Creating ECS cluster and ECS service in AWS
+* In AWS --> search for ECS
+    - click on `Clusters` --> click on 'create cluster'
+        - give a name
+        - under Networking --> vpc and subnets (of all zones available in the region are selected), leave the default selection or choose a custom vpc and subnets
+        - under Infrastructure --> AWS fargate (serverless) - default
+            > can also use ec2 instances
+        - Monitoring (optional) --> enable container insights (if required)
+        - tags (optional) --> add the tags related to the project
+        - click on `create`
+            > If any error after clicking on create, repeat the creation steps again.
+
+    > Once the ECS cluster creation is completed, create Task definition which wll have the informtion about the container like from where the images are pulled, cpu, RAM, etc.
+
+    - click on `Task definitions` --> click on 'create new task definition'
+        - 
