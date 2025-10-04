@@ -153,12 +153,54 @@ reboot
         - under Networking --> vpc and subnets (of all zones available in the region are selected), leave the default selection or choose a custom vpc and subnets
         - under Infrastructure --> AWS fargate (serverless) - default
             > can also use ec2 instances
-        - Monitoring (optional) --> enable container insights (if required)
-        - tags (optional) --> add the tags related to the project
+        - Monitoring --> enable container insights (metrics are collected to CloudWatch)
+        - tags --> add the tags related to the project
         - click on `create`
             > If any error after clicking on create, repeat the creation steps again.
 
     > Once the ECS cluster creation is completed, create Task definition which wll have the informtion about the container like from where the images are pulled, cpu, RAM, etc.
 
     - click on `Task definitions` --> click on 'create new task definition'
-        - 
+        - Give a name
+        - under  Infrastructure
+            - launch type --> AWS fargate (default selection)
+            - OS --> linux/x86_64
+            - 1 CPU and 2GB Memory (minimum for this exercise)
+            - Task roles (IAM roles/policies the ECS will use to access other AWS resources - like to fetch the image from ECR, to access CloudWatch logs where the container logs are stored)
+                - Task role --> leave as empty
+                - Task execution role --> `Create new role` --> this will create a new IAM role for which more permissions can be added
+        - under 'Container - 1'
+            - give a name to container to be created
+            - Image URI --> ECR URI (eg: 716657688884.dkr.ecr.us-east-1.amazonaws.com/vprofileappimg)
+            - container port --> 8080 (for tomcat service that runs the vproapp in this exercise)
+            - By default 'use log collection' is ticked --> logs will be stored in CloudWatch
+                > By default the IAM role created (Task execution role) will not have the permission to access these logs. After creating the Task definition this IAM role needs to be updated.
+            - Leave others as default
+        - Add tags (if required)
+        - click on `create`
+        > By using this Task definition we can run the container on the ECS cluster
+
+    - After the Task definition is created --> click on it --> click on `csTaskExecutionRole` (can also go from IAM roles).
+        - Add permissions --> Attach policies --> search for and select `CloudWatchLogsFullAccess` --> click on `Add permissions`
+
+    - Now go to the ECS cluster --> under services --> click `create`
+        > In ECS, we can also use 'Task' which is running the container but here the container management is manual. If we use 'Service' it will manage the task. 
+        
+        - Under 'Environment'
+            - compute options --> capacity provider startegy --> capacity provider --> Fargate
+        - Under 'Deployment'
+            - Application type --> service
+            - Family --> select the Task definition created in previous step and Revision (latest or any specific in case of multiple revisions)
+            - Give a name to service
+            - Desired tasks --> 1 (container for this exercise)
+            - Deployment options --> in case of multiple containers/tasks, we can use this to select the deployment type, min and max running tasks at the time of deployment
+            - Deployment failure detection --> uncheck the selection (for this exercise to avoid any issues)
+        - Under 'Networking'
+            - By default it will the same vpc and subnets of ECS
+            - Security Groups 
+                - create new
+                    > this SG will be used for the container and the load balancer created part of the service
+                - Add 2 rules (Inbound)
+                    - http (port 80) and source as anywhere
+                    - custom tcp (port 8080) and source as anywhere, cuz the LB direct the request to container (which run on 8080 for tomcat in this exercise)
+
