@@ -1,5 +1,5 @@
-
-## Docker CI flow
+This file contains the steps for docker CI and CD
+* [_Docker CI flow image_](#docker-ci-flow)
 * [_Prerequisites for docker PaaC_](#prerequisites-for-docker-paac)
 * [_Steps for docker CI in Jenkins_](#steps-for-docker-ci-in-jenkins)
     - [_Installing docker engine and aws cli in jenkins server_](#install-docker-engine-and-aws-cli)
@@ -7,8 +7,12 @@
     - [_Installing plugins and storing credentials in jenkins_](#install-the-plugins-and-store-credentials-in-jenkins)
 * [_Pipeline for docker CI_](#pipeline-for-docker-ci)
 * [_Pipeline for docker CI and CD_](#pipeline-for-docker-cicd)
+    - [_docker CI and CD flow_](#docker-cicd-flow)
+    - [_Prerequisited for docker CICD_](#prerequisites-for-docker-cicd)
     - [_Creating ECS cluster and service in AWS_](#creating-ecs-cluster-and-ecs-service-in-aws)
     - [_Pipeline with docker CICD_](#pipeline-with-docker-cicd)
+
+## Docker CI flow
 
 ![alt text](Docker-CI-flow.png)
 
@@ -138,6 +142,7 @@ reboot
     > The image is uploaded to ECR but also exist in Jenkins, so we need to another stage to remove the image from Jenkins after the upload to ECR is completed (covered in the pipeline code)
 
 ### Pipeline for Docker CICD
+#### Docker CICD flow
 ![alt text](Docker-CICD-flow.png)
 
 * It is an extension of CI pipeline to also include the delivery of code (deployment) to the Container hosting platform
@@ -145,7 +150,7 @@ reboot
     - Kubernetes
     - ECS (Elastic Container Service - for this exercise)
 
-* Prerequisites:
+#### Prerequisites for docker CICD:
     - ECS cluster and service
     - Plugin --> pipeline: aws steps
 
