@@ -9,6 +9,11 @@
 - Build after other projects are built --> trigger is completoin of a previos job, we need to configure the sequence of jobs to trigger the subsequent job
 
 ### Steps
+* [Create a Github repository](#git-repo)
+* [SSH authentication of git repo](#ssh-authentication-of-git-repo)
+* [Create a Jenkinsfile in get repo and commit](#commiting-a-jenkinsfile-to-repo)
+* [Create a jenkins job to access Jenkinsfile from git repo](#creating-a-job-in-jenkins-and-adding-credentials-to-use-the-ssh-key)
+* [Test the triggers](#test-triggers)
 
 #### Git Repo
 * create a Github repository
