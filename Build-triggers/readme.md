@@ -94,10 +94,17 @@
 > We can see 'GitHub Hook Log' added to the pipeline dashboard
 
 #### Poll SCM
-* Go to the jenkins job created in previous section --> configure --> Build triggers --> select `Poll SCM` (unselect the github webhook trigger 'GitHub hook trigger for GITScm polling') --> Schedule --> add a schedule in cronjob format (Minute Hour DOM Month DOW) --> save
+* Go to the jenkins job created in previous section --> configure --> Build triggers --> select `Poll SCM` --> Schedule --> add a schedule in cronjob format (Minute Hour DOM Month DOW) --> save
     > eg: * * * * * --> every minute
 
     > Minute --> 0 to 59; Hour --> 0 to 23 DOM --> day of month (1 to 31); Month --> 0 to 12; DOW --> Day of week (0 to 7 where o & 7 are Sunday)
 
 * Now to test the trigger by adding a sample text file and commit to repo which should trigger the job
 > We can see 'Git Polling Log' added to the pipeline dashboard 
+
+#### Scheduled Jobs
+* Here jenkins will run the pipeline as per the schedule and not based on the commits as it will not check for changes in repo
+* Go to the jenkins job created in previous section --> configure --> Build triggers --> select `Build periodically` --> Schedule --> add a schedule in cronjob format (Minute Hour DOM Month DOW) --> save
+    > eg: 30 20 * * 1-5 --> run at 8:30 PM every Monday to Friday
+
+#### Remote Trigger
