@@ -183,7 +183,7 @@ reboot
     - After the Task definition is created --> click on it --> click on `csTaskExecutionRole` (can also go from IAM roles).
         - Add permissions --> Attach policies --> search for and select `CloudWatchLogsFullAccess` --> click on `Add permissions`
 
-    - Now go to the ECS cluster --> under services --> click `create`
+    - Now go to the ECS cluster --> under `services` --> click 'create'
         > In ECS, we can also use 'Task' which is running the container but here the container management is manual. If we use 'Service' it will manage the task. 
         
         - Under 'Environment'
@@ -196,11 +196,32 @@ reboot
             - Deployment options --> in case of multiple containers/tasks, we can use this to select the deployment type, min and max running tasks at the time of deployment
             - Deployment failure detection --> uncheck the selection (for this exercise to avoid any issues)
         - Under 'Networking'
-            - By default it will the same vpc and subnets of ECS
+            - By default it will be the same vpc and subnets of ECS
             - Security Groups 
                 - create new
                     > this SG will be used for the container and the load balancer created part of the service
                 - Add 2 rules (Inbound)
                     - http (port 80) and source as anywhere
                     - custom tcp (port 8080) and source as anywhere, cuz the LB direct the request to container (which run on 8080 for tomcat in this exercise)
+        - under 'Load balancing'
+            - type --> application load balancer
+            - container --> select the container created under Task definition
+                > It will show two ports (eg --> 8080:8080, 1st one is the backend port of LB and the other is the frontend port of the container)
+            - give a name to LB
+            - Listener
+                - port 80 (frontend of LB)
+                - give a name to Target group
+        - click on `create`
 
+        > To access the application --> service --> configuration and networking --> Network configuration --> DNS names (URL to access application). But the deployment here is done through AWS console, in the next section we see it through Jenkins which will tell the ECS service to update the container and delete the old container
+
+> **Install the plugin required to run AWS CLI command for deployment stage** --> Jenkins Dashboard --> manage jenkins --> plugins --> available plugins --> search for and select `Pipeline: AWS Steps` --> click on `Install`
+
+#### Pipeline with docker CICD
+* Pipeline code with the stage to deploy the image to ECS [_Jenkinsfile for docker CICD_](Jenkinsfile-for-docker-CICD). Change the file name to Jenkinsfile and update the values in stages before using this.
+
+* In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
+        - Under Pipeline --> Definition --> Pipeline script --> paste the pipeline script
+        - save --> build now
+
+    > When we run this pipeline, it will create a new container with tha latest image and the old (running) container in ECS service will be deleted gradually once the new container becomes active.
