@@ -1,6 +1,6 @@
 * Jenkins pipeline can be executed automatically using triggers instead of clicking the 'Build now' button manually.
 
-### Popular triggers
+## Popular triggers
 
 - Git Webhook --> Git repo will trigger the jenkins job whenever a commit or any changes made to the repo (Git repo will send a JSON payload)
 - Pool SCM --> opposite of Git Webhook. Here Jenkins will check for commits in the git repo with a frequency that we set and trigger the job when a commit is found
@@ -8,14 +8,14 @@
 - Remote triggers (complex) --> trigger the job from anywhere like using a script, ansible playbook, etc which uses tokens, secrets, URLs, etc. Here we get an api call which can be used to trigger the job
 - Build after other projects are built --> trigger is completoin of a previos job, we need to configure the sequence of jobs to trigger the subsequent job
 
-### Steps
+## Steps
 * [Create a Github repository](#git-repo)
 * [SSH authentication of git repo](#ssh-authentication-of-git-repo)
 * [Create a Jenkinsfile in get repo and commit](#commiting-a-jenkinsfile-to-repo)
 * [Create a jenkins job to access Jenkinsfile from git repo](#creating-a-job-in-jenkins-and-adding-credentials-to-use-the-ssh-key)
 * [Test the triggers](#test-triggers)
 
-#### Git Repo
+### Git Repo
 * create a Github repository
     - Gihub repo --> we'll use the ssh link of git repo
         > git@github.com:[organization name]/[repo name].git
@@ -23,7 +23,7 @@
     - Before using this link, we need to store the ssh keys in Github account
 
 
-#### SSH authentication of Git repo
+### SSH authentication of Git repo
 * Set ssh suthentication to Github repo
     - Create ssh keys
     - open command prompt
@@ -39,7 +39,7 @@
     - Copy the public key content
     - Go to Gihub account --> settings (account settings) --> SSH and GPG keys --> click on `New SSH key` --> give a title and paste the public key content --> click on `Add SSH key` to save it.
 
-#### Commiting a Jenkinsfile to repo
+### Commiting a Jenkinsfile to repo
 * Create a Jenkinsfile in get repo and commit
     - clone the repo
         ```
@@ -55,7 +55,7 @@
         git add. ; git commit -m "build trigger test"; git push origin master
         ```
 
-#### Creating a job in jenkins and adding credentials to use the ssh key
+### Creating a job in jenkins and adding credentials to use the ssh key
 * Create a jenkins job to access Jenkinsfile from git repo
     - Jenkins tries to ssh git repo using the key and encounter 'Host key verfification failed'. This is becuase whenever we login to linux using ssh for the first time there would be a question (Fingerprint, do you accept the connection) to enter yes/no. Jenkins will also face this question if the host key checking is enabled
     - To avoid this --> Jenkins dashboard --> manage jenkins --> security --> Configure Global security --> scroll down to find `Git Host key verification configuration` --> select `Accept first connection` for 'Host key verification strategy' and click on `Apply` and then `save`
@@ -76,8 +76,8 @@
             - Script Path --> path of the `Jenkinsfile` (if it is in the root directory of the branch just mentoin the file name or if it is located in a folder eg: /trigger/Jenkinsfile)
         - save --> build now
 
-#### Test triggers
+### Test triggers
 
-
+#### Git WebHook
 
 
