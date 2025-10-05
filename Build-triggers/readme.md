@@ -90,7 +90,7 @@
     - click on `Add webhook` to save it.
     > once it is added we should see a green tick mark for the webhook indicating the last delivery as successfull, if not refresh the page. Click on the webhook --> REcent deliveries. If we see a failure (red mark), check if the Jenkins URL and content type are correct. Also, check the Jenkins server SG has an inbound rule allowing port 8080 from anywhere (0.0.0.0/0)
 * Go to the jenkins job created in previous section --> configure --> Build triggers --> select `GitHub hook trigger for GITScm polling` --> Save
-* Now to test the trigger add a sample text file and commit to repo which should trigger the job
+* Now to test the trigger by adding a sample text file and commit to repo which should trigger the job
 > We can see 'GitHub Hook Log' added to the pipeline dashboard
 
 #### Poll SCM
@@ -99,4 +99,5 @@
 
     > Minute --> 0 to 59; Hour --> 0 to 23 DOM --> day of month (1 to 31); Month --> 0 to 12; DOW --> Day of week (0 to 7 where o & 7 are Sunday)
 
+* Now to test the trigger by adding a sample text file and commit to repo which should trigger the job
 > We can see 'Git Polling Log' added to the pipeline dashboard 
