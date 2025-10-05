@@ -1,12 +1,11 @@
 * Jenkins pipeline can be executed automatically using triggers instead of clicking the 'Build now' button manually.
 
 ## Popular triggers
-
-- Git Webhook --> Git repo will trigger the jenkins job whenever a commit or any changes made to the repo (Git repo will send a JSON payload)
-- Pool SCM --> opposite of Git Webhook. Here Jenkins will check for commits in the git repo with a frequency that we set and trigger the job when a commit is found
-- Scheduled jobs --> like cron jobs, jenkins will make sure to run the jobs as per the defined schedule
-- Remote triggers (complex) --> trigger the job from anywhere like using a script, ansible playbook, etc which uses tokens, secrets, URLs, etc. Here we get an api call which can be used to trigger the job
-- Build after other projects are built --> trigger is completoin of a previos job, we need to configure the sequence of jobs to trigger the subsequent job
+* Git Webhook --> Git repo will trigger the jenkins job whenever a commit or any changes made to the repo (Git repo will send a JSON payload)
+* Poll SCM --> opposite of Git Webhook. Here Jenkins will check for commits in the git repo with a frequency that we set and trigger the job when a commit is found
+* Scheduled jobs --> like cron jobs, jenkins will make sure to run the jobs as per the defined schedule
+* Remote triggers (complex) --> trigger the job from anywhere like using a script, ansible playbook, etc which uses tokens, secrets, URLs, etc. Here we get an api call which can be used to trigger the job
+* Build after other projects are built --> trigger is completoin of a previos job, we need to configure the sequence of jobs to trigger the subsequent job
 
 ## Steps
 * [Create a Github repository](#git-repo)
@@ -79,5 +78,25 @@
 ### Testing the triggers
 
 #### Git WebHook
+* To trigger the pipeline based on a commit (or other events in git repo)
+* Copy the Jenkins URL --> http://[jenkins server public IP or DNS record]:8080/ (can also use https)
+    > eg: http://18.208.57.13:8080/
+* In the Github repo --> settings --> code and automation --> webhooks --> click on `Add webhook`
+    - Payload URL --> paste the jenkins URL and add `github-webhook/`
+        > eg: http://18.208.57.13:8080/github-webhook/
+    - Content type --> select 'application/json'
+    - Select the events to trigger the webhook --> select **push** event 
+        > apart from push we can also select **everything** or **individual events**
+    - click on `Add webhook` to save it.
+    > once it is added we should see a green tick mark for the webhook indicating the last delivery as successfull, if not refresh the page. Click on the webhook --> REcent deliveries. If we see a failure (red mark), check if the Jenkins URL and content type are correct. Also, check the Jenkins server SG has an inbound rule allowing port 8080 from anywhere (0.0.0.0/0)
+* Go to the jenkins job created in previous section --> configure --> Build triggers --> select `GitHub hook trigger for GITScm polling` --> Save
+* Now to test the trigger add a sample text file and commit to repo which should trigger the job
+> We can see 'GitHub Hook Log' added to the pipeline dashboard
 
+#### Poll SCM
+* Go to the jenkins job created in previous section --> configure --> Build triggers --> select `Poll SCM` (unselect the github webhook trigger 'GitHub hook trigger for GITScm polling') --> Schedule --> add a schedule in cronjob format (Minute Hour DOM Month DOW) --> save
+    > eg: * * * * * --> every minute
 
+    > Minute --> 0 to 59; Hour --> 0 to 23 DOM --> day of month (1 to 31); Month --> 0 to 12; DOW --> Day of week (0 to 7 where o & 7 are Sunday)
+
+> We can see 'Git Polling Log' added to the pipeline dashboard 
