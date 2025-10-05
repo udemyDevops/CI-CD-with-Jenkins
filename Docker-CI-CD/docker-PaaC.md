@@ -6,6 +6,9 @@
     - [_Creating IAM user and ECR in AWS_](#creating-iam-user-and-ecr-in-aws)
     - [_Installing plugins and storing credentials in jenkins_](#install-the-plugins-and-store-credentials-in-jenkins)
 * [_Pipeline for docker CI_](#pipeline-for-docker-ci)
+* [_Pipeline for docker CI and CD_](#pipeline-for-docker-cicd)
+    - [_Creating ECS cluster and service in AWS_](#creating-ecs-cluster-and-ecs-service-in-aws)
+    - [_Pipeline with docker CICD_](#pipeline-with-docker-cicd)
 
 ![alt text](Docker-CI-flow.png)
 
