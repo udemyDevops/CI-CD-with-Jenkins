@@ -1,7 +1,7 @@
 
 ## Docker CI flow
 * [_Prerequisites for docker PaaC_](#prerequisites-for-docker-paac)
-* [_Steps for docker CI in Jenkins](#steps-for-docker-ci-in-jenkins)
+* [_Steps for docker CI in Jenkins_](#steps-for-docker-ci-in-jenkins)
     - [_Installing docker engine and aws cli in jenkins server_](#install-docker-engine-and-aws-cli)
     - [_Creating IAM user and ECR in AWS_](#creating-iam-user-and-ecr-in-aws)
     - [_Installing plugins and storing credentials in jenkins_](#install-the-plugins-and-store-credentials-in-jenkins)
