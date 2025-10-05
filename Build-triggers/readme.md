@@ -1,11 +1,12 @@
 * Jenkins pipeline can be executed automatically using triggers instead of clicking the 'Build now' button manually.
 
 ### Popular triggers
-    - Git Webhook --> Git repo will trigger the jenkins job whenever a commit or any changes made to the repo (Git repo will send a JSON payload)
-    - Pool SCM --> opposite of Git Webhook. Here Jenkins will check for commits in the git repo with a frequency that we set and trigger the job when a commit is found
-    - Scheduled jobs --> like cron jobs, jenkins will make sure to run the jobs as per the defined schedule
-    - Remote triggers (complex) --> trigger the job from anywhere like using a script, ansible playbook, etc which uses tokens, secrets, URLs, etc. Here we get an api call which can be used to trigger the job
-    - Build after other projects are built --> trigger is completoin of a previos job, we need to configure the sequence of jobs to trigger the subsequent job
+
+- Git Webhook --> Git repo will trigger the jenkins job whenever a commit or any changes made to the repo (Git repo will send a JSON payload)
+- Pool SCM --> opposite of Git Webhook. Here Jenkins will check for commits in the git repo with a frequency that we set and trigger the job when a commit is found
+- Scheduled jobs --> like cron jobs, jenkins will make sure to run the jobs as per the defined schedule
+- Remote triggers (complex) --> trigger the job from anywhere like using a script, ansible playbook, etc which uses tokens, secrets, URLs, etc. Here we get an api call which can be used to trigger the job
+- Build after other projects are built --> trigger is completoin of a previos job, we need to configure the sequence of jobs to trigger the subsequent job
 
 ### Steps
 
