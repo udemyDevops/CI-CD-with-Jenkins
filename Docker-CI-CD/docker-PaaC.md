@@ -223,6 +223,8 @@ reboot
 
         > To access the application --> service --> configuration and networking --> Network configuration --> DNS names (URL to access application). But the deployment here is done through AWS console, in the next section we see it through Jenkins which will tell the ECS service to update the container and delete the old container
 
+> While doing the cleanup, ECS cluster cannot be deleted directly. First edit the service to make the desired tasks count to zero, update and then delete the service. Once the service is deletd then delete the ECS cluster
+
 > **Install the plugin required to run AWS CLI command for deployment stage** --> Jenkins Dashboard --> manage jenkins --> plugins --> available plugins --> search for and select `Pipeline: AWS Steps` --> click on `Install`
 
 #### Pipeline with docker CICD
