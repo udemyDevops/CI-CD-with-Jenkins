@@ -1,4 +1,4 @@
-This section covers the Jenkins Master-Slave concept. In the previous sections the jobs are run on Jenkins master server. But in some scenario or use cases where we need to run jobs from some other machines which will be the slave machines for Jenkins.
+This section covers the Jenkins Master-Slave (or agent or node) concept. In the previous sections the jobs are run on Jenkins master server. But in some scenario or use cases where we need to run jobs from some other machines which will be the slave machines for Jenkins.
 
 * [_Common use cases_](#common-use-cases)
 * [_Prerequisites for Node setup_](#prerequisites-for-node-setup)
@@ -6,6 +6,9 @@ This section covers the Jenkins Master-Slave concept. In the previous sections t
 * [_Adding the node to Jenkins_](#adding-the-node-to-jenkins)
     - [_Using password based authentication_](#using-password-based-authentication)
     - [_Using key based authentication_](#using-key-based-authentication)
+* [_Using the Node_](#using-the-node)
+    - [_Freestyle job to run on the node/agent_](#freestyle-job-to-run-on-the-nodeagent)
+    - [_pipeline code to run on the node/agent_](#pipeline-code-to-run-on-the-nodeagent)
 
 ### Common use-cases
 * load distribution or distributed builds
@@ -159,3 +162,25 @@ ls -ld /opt/jenkins/
     - click on `save`
 
 * Now in Jenkins dashboard --> manage jenkins --> Nodes --> click on the newly added node --> log (can see the agent connection status)
+
+### Using the Node
+
+#### Freestyle job to run on the node/agent
+* Jenkins Dashboard --> click on '+ New Item' --> give a name and select item type as 'freestyle project' (for practice) --> ok --> 
+    - under **General** --> tick the box for `Restrict where this project can be run` (available for freestyle) --> for Label expression, give the label used for node/agent
+    - Under **source code management** --> select Git --> Repository URL (https://github.com/hkhcoder/vprofile-project) and branch as 'atom' (for this exercise)
+    - Under **Build steps** --> Add build step --> select `Invoke top-level Maven targets`
+        - Maven version --> choose the maven tool (eg: maven3.9) installed in Jenkins --> manage jenkins --> Tools
+            > we can select 'default' if maven is installed in the node. (In both cases, JDK should have been installed in the node for the maven to work). If the Maven is not installed in the node and we select default for maven version then the job fails as it will be running on the node/agent which do not have maven and the 'mvn install' command as per the build steps will fail.
+        - Goals --> install
+        > Build steps configured above will run the 'mvn install' command
+    - click on `Save`
+    - `Build now` --> to run the job
+
+
+#### Pipeline code to run on the node/agent
+* Pipeline code using the agent/node label [_sample Jenkinsfile_](Jenkinsfile), update the values before using this file.
+
+* In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
+    - Under Pipeline --> Definition --> Pipeline script --> paste the pipeline script
+    - save --> build now

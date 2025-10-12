@@ -1,0 +1,44 @@
+// update the values before using this.
+
+pipeline {
+
+	agent {
+		label 'PLUTO'   // label name of the node/agent
+    }
+
+	tools {
+	    maven "MAVEN3.9"	// name of the tool installed in Jenkins
+	    jdk "JDK17"
+	}
+
+	stages {
+
+	    stage('Fetch code') {
+            steps {
+               git branch: 'atom', url: 'https://github.com/hkhcoder/vprofile-project.git'
+            }
+
+	    }
+
+       stage('UNIT TEST') {
+            steps{
+                sh 'mvn test'
+            }
+        }
+
+	    stage('Build'){
+	        steps{
+	           sh 'mvn install -DskipTests'
+	        }
+
+	        post {
+	           success {
+	              echo 'Now Archiving it...'
+	              archiveArtifacts artifacts: '**/target/*.war'
+	           }
+	        }
+	    }
+
+	}
+
+}
