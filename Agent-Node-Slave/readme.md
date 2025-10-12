@@ -11,3 +11,5 @@ This section covers the Jenkins Master-Slave concept. In the previous sections t
     > When doing continuous delivery and need to include the software testing. Software testers or the QA team will be writing software test cases. They will be mostly executing it from a Windows machine, so it'll open a browser graphically and execute the test cases. Software testers will have some machine which can be added as a slave, and we can run the software test cases from Jenkins. So we can include that job also in our pipeline.
 
 * To run the scripts like shell script, Python script, Ansible playbook we can have a separate machine that runs the script by adding it as a slave to run any command or a script. It can be Windows machine or Linux machine or MacOS or someone's laptop.
+
+![alt text](Jenkins-Master-slave.png)
