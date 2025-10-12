@@ -12,6 +12,7 @@
         - In previous sections the pipeline jobs were triggered manually by clicking on 'Build now' button in jenkins. Here we see how to run the job automatically when a commit is made to the repo
     - [_Agent/Node/Slave concept_](Agent-Node-Slave)
     - [_Jenkins security_](Jenkins-security)
+        - Authentication and Authorization of users
 
 ### Jobs in Jenkins
 * Freestyle
