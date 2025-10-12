@@ -1,0 +1,2 @@
+* This section covers the Authentication and Authorization in Jenkins. In the previous sections all configurations and jobs are done using Admin user.
+* In Jenkins, once we create a pipeline it may be handed-over to the respective team (developers, testers, OPs or non-OPs). The teams cannot use Admin user instead their IDs with the permissions set as per the requirement
