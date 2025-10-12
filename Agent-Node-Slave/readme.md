@@ -1,8 +1,8 @@
-This file covers the Jenkins Master-Slave concept. In the previous sections we had run the jobs on Jenkins master server. But in some scenario or use cases where we need to run jobs from some other machines which will be the slave machines for Jenkins.
+This section covers the Jenkins Master-Slave concept. In the previous sections the jobs are run on Jenkins master server. But in some scenario or use cases where we need to run jobs from some other machines which will be the slave machines for Jenkins.
 
 ### Common use-cases
 * load distribution or distributed builds
-    > when using Jenkins at an organization level and there are many jobs getting triggered automatically, people are executing jobs which may not be possible for Jenkins to run all those jobs. So, if we add a node as a slave to Jenkins, then Jenkins can decide if the job has to be running on master or on the slave. Jenkins will pick up a slave from its arsenal and execute the job on the slave. Whether we're executing or cloning the source code, we're running Maven commands, we're running software tests, these things will be running on the slave.
+    > when using Jenkins at an organization level and there are many jobs getting triggered automatically, people are executing jobs which may not be possible for Jenkins to run all those jobs. So, if we add a node as a slave to Jenkins, then Jenkins can decide if the job has to be running on master or on the slave. Jenkins will pick up an available slave and execute the job on the slave. Whether we're executing or cloning the source code, we're running Maven commands, we're running software tests, these things will be running on the slave.
 
 * cross-platform builds
     > If we're running Jenkins on a Linux machine and need to build a Windows-based package, we need some Windows tools like MS Build which we cannot execute that on Linux machines. So, we will add a Windows machine as a slave to Jenkins and we can run the specific job, say, "Run my Windows job only on this Windows machine." Or same for MacOS.
