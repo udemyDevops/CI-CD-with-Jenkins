@@ -4,7 +4,8 @@ This section covers the Jenkins Master-Slave concept. In the previous sections t
 * [_Prerequisites for Node setup_](#prerequisites-for-node-setup)
 * [_Creating a Node server, user and directory_](#creating-a-node-server-user-and-directory)
 * [_Adding the node to Jenkins_](#adding-the-node-to-jenkins)
-
+    - [_Using password based authentication_](#using-password-based-authentication)
+    - [_Using key based authentication_](#using-key-based-authentication)
 
 ### Common use-cases
 * load distribution or distributed builds
@@ -104,6 +105,8 @@ ls -ld /opt/jenkins/
 ```
 
 ### Adding the node to Jenkins
+
+#### Using password based authentication
 * In Jenkins dashboard --> manage jenkins --> Nodes --> click on `+ New node`
     - Give a name to node
     - tick the box for `permanent agent` under Type
@@ -128,5 +131,31 @@ ls -ld /opt/jenkins/
             - From the drop down select the saved token
             - Host key verification strategy --> select `Non verifying Verification strategy`
                 > Jenkins tries to ssh node server and encounter 'Host key verfification failed'. This is becuase whenever we login to linux using ssh for the first time there would be a question (do you want to save the node) to enter yes/no. Jenkins will also face this question if the host key checking is enabled. To avoid this select 'Non verifying Verification strategy'
-            - 
+            - click on `Save`
     
+* Now in Jenkins dashboard --> manage jenkins --> Nodes --> click on the newly added node --> log (can see the agent connection status)
+* In the node --> 'ls -l /opt/jenkins/' --> can see a 'remoting' folder and 'remoting.jar' file (remoting agent configuration)
+
+#### Using key based authentication
+* To test the key based authentication for the same node, first disconnect the node added using passwrod authentication
+    - Jenkins dashboard --> manage jenkins --> Nodes --> click on the newly added node --> Disconnect --> yes
+    - In the node --> remove the contemt in the folder created for jenkins
+    ```
+    rm -rf /opt/jenkins/*
+    ```
+    > this will remove the remoting agent configuration
+
+* Jenkins dashboard --> manage jenkins --> Nodes --> click on the node (added in previous section) --> configure
+    - change the credentials
+        - click on `Add` --> select Jenkins (credentials provider)
+        - For `kind`, select `SSH Username with private key`
+        - Scope --> Global
+        - Id --> giva a name to identify with node credentials (this name will be used in pipeline code)
+        - add Description
+        - username --> 'ubuntu' ('devops' user do not have an ssh key)
+        - private key --> tick 'enter directly' --> Add --> paste the private key content (including the begin and end statements)
+        - click on `Add`
+    - From the drop down select the saved token
+    - click on `save`
+
+* Now in Jenkins dashboard --> manage jenkins --> Nodes --> click on the newly added node --> log (can see the agent connection status)
