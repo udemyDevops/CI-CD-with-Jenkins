@@ -149,7 +149,7 @@ curl -I -X POST http://username:APItoken@Jenkins_IP:8080/job/JOB_NAME/build?toke
 
 
 #### Build after other projects are built
-* For this we use a freestyle job that will be triggered after the job of previous pipeline (used in above sections) is completed
+* For this we use a freestyle job (for practice) that will be triggered after the job of previous pipeline (used in above sections) is completed
 
 * Jenkins Dashboard --> click on '+ New Item' --> give a name and select item type as 'freestyle project' (for practice) --> ok --> under Build --> add build step --> Execute Shell --> (echo "test test") --> save
 
