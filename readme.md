@@ -10,7 +10,7 @@
         - In Prevoius sections the artifacts are published in CI pipeline. Here we build the docker images, which contains artifacts, publish to container registry using CI pipeline and deploy the image
     - [_Build Triggers_](Build-triggers)
         - In previous sections the pipeline jobs were triggered manually by clicking on 'Build now' button in jenkins. Here we see how to run the job automatically when a commit is made to the repo
-    
+    - [_Agent/Node/Slave concept_](Agent-Node-Slave)
 
 
 ### Jobs in Jenkins
