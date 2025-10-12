@@ -5,7 +5,7 @@
 * Poll SCM --> opposite of Git Webhook. Here Jenkins will check for commits in the git repo with a frequency that we set and trigger the job when a commit is found
 * Scheduled jobs --> like cron jobs, jenkins will make sure to run the jobs as per the defined schedule
 * Remote triggers (complex) --> trigger the job from anywhere like using a script, ansible playbook, etc which uses tokens, secrets, URLs, etc. Here we get an api call which can be used to trigger the job
-* Build after other projects are built --> trigger is completoin of a previos job, we need to configure the sequence of jobs to trigger the subsequent job
+* Build after other projects are built --> trigger is completion of a previous job, we need to configure the sequence of jobs to trigger the subsequent job
 
 ## Steps
 * [Create a Github repository](#git-repo)
@@ -13,6 +13,7 @@
 * [Create a Jenkinsfile in get repo and commit](#commiting-a-jenkinsfile-to-repo)
 * [Create a jenkins job to access Jenkinsfile from git repo](#creating-a-job-in-jenkins-and-adding-credentials-to-use-the-ssh-key)
 * [Test the triggers](#testing-the-triggers)
+* [Build after other projects are built](#build-after-other-projects-are-built)
 
 ### Git Repo
 * create a Github repository
@@ -137,7 +138,7 @@ Refer the below documents for steps to setup remote trigger
 
     > Now, open Git Bash and run the command above --> it will give the crumb (eg: Jenkins-Crumb:86df83e602414bae9f0ad90588a9223306ab5e103d7749a88f5bc92ff505c183) --> copy it to be used in 'curl' command
 
-* After generating the JOB URL, token and CRUMB --> Run the below 'curl' command (update the values) from antwhere (eg: Git Bash)
+* After generating the JOB URL, token and CRUMB --> Run the below 'curl' command (update the values) from antwhere (eg: Git Bash, it should trigger a build in jenkins)
 ```
 curl -I -X POST http://username:APItoken@Jenkins_IP:8080/job/JOB_NAME/build?token=TOKENNAME
 -H "Jenkins-Crumb:CRUMB"
@@ -145,3 +146,13 @@ curl -I -X POST http://username:APItoken@Jenkins_IP:8080/job/JOB_NAME/build?toke
 > Syntax of the command --> curl -I -X POST http://(TokenForUser)@(JobURL without http://) -H "CRUMB"
 
 > eg: curl -I -X POST http://admin:86df83e602414bae9f0ad90588a92233@JenkinsServerIP:8080/job/Build/build?token=mybuildtoken -H "Jenkins-Crumb:86df83e602414bae9f0ad90588a9223306ab5e103d7749a88f5bc92ff505c183"
+
+
+#### Build after other projects are built
+* For this we use a freestyle job that will be triggered after the job of previous pipeline (used in above sections) is completed
+
+* Jenkins Dashboard --> click on '+ New Item' --> give a name and select item type as 'freestyle project' (for practice) --> ok --> under Build --> add build step --> Execute Shell --> (echo "test test") --> save
+
+* Now in the pipeline --> configure --> Build triggers --> select `Build after other projects are built` and enter the name of the pipeline (Job name) to trigger this (freestyle) job --> save
+
+> Now, run the job added as a trigger. Once it is finished should trigger the freestyle job
