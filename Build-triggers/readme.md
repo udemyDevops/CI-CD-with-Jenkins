@@ -108,6 +108,14 @@
     > eg: 30 20 * * 1-5 --> run at 8:30 PM every Monday to Friday
 
 #### Remote Trigger
-Can refer
+Refer the below documents for steps to setup remote trigger
 - [_Build+Triggers+Remotely.docx_](Build+Triggers+Remotely.docx)
 - [_Build+Triggers+Remotely.pdf_](Build+Triggers+Remotely.pdf)
+
+> Remote trigger - can trigger the Jenkins job from anywhere, from a script, from other Jenkins server, from our laptop, from some other server, anywhere we can run that job, as long as we have the network access to the Jenkins server.
+
+* **Generate JOB URL**
+    * Go to the jenkins job created in previous section --> configure --> Build triggers --> select `Trigger builds remotely` --> Authentication token --> can give a name for token (eg: mybuildtoken) --> the same name should be there in the token URL (eg: JENKINS_URL/job/Build/build?token=TOKEN_NAME)
+    ![_Job URL_](jobUrl-buildToken.png)
+
+    - JENKINS_URL --> http://<enkinsServerIP:8080
