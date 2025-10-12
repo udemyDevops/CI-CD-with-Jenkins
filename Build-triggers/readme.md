@@ -114,8 +114,34 @@ Refer the below documents for steps to setup remote trigger
 
 > Remote trigger - can trigger the Jenkins job from anywhere, from a script, from other Jenkins server, from our laptop, from some other server, anywhere we can run that job, as long as we have the network access to the Jenkins server.
 
-* **Generate JOB URL**
-    * Go to the jenkins job created in previous section --> configure --> Build triggers --> select `Trigger builds remotely` --> Authentication token --> can give a name for token (eg: mybuildtoken) --> the same name should be there in the token URL (eg: JENKINS_URL/job/Build/build?token=TOKEN_NAME)
+* _Generate JOB URL_
+    * Go to the jenkins job created in previous section --> configure --> Build triggers --> select `Trigger builds remotely` --> Authentication token --> can give a name for token (eg: mybuildtoken), the same name should be there in the token URL (eg: JENKINS_URL/job/JOB_NAME/build?token=TOKEN_NAME) --> copy the URL --> click on `save`
     ![_Job URL_](jobUrl-buildToken.png)
+    * Update the URL
+        - JENKINS_URL --> http://JenkinsServerIP:8080
+        - JOB_NAME --> name of the pipeline job (eg: Build)
+        - TOKEN_NAME --> name of the token (eg: mybuildtoken)
+    * Now the JOB URL will be like eg: 'http://JenkinsServerIP:8080/job/Build/build?token=mybuildtoken'
 
-    - JENKINS_URL --> http://<enkinsServerIP:8080
+* _Generate Token for user_
+    * In the Jenkins, go to the user (logged in with) on top right corner --> configure --> API Token --> Add new token --> `Generate` --> Copy the token (it should be appended to the username) to be used in 'curl' command (username:APIToken) later
+        > username:token --> eg: admin:86df83e602414bae9f0ad90588a92233
+
+
+* _Generate CRUMB_
+    * Run the below command (update the values)
+    ```
+    wget -q --auth-no-challenge --user username --password password --output-document - 'http://JekninsserverIP:8080/crumbIssuer/api/xml?path=concat(//crumbRequestField,":",//crumb)'
+    ```
+    > In Windows, wget command is not available by default and need to be installed. For this exercise we use wget for Git Bash (https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058 --> https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058#wget) --> download 64-bit zip file --> open the zip file --> select(single click) `wget.exe` and and click `Extract to` the path "C:\Program Files\Git\mingw64\bin" and click 'ok'
+
+    > Now, open Git Bash and run the command above --> it will give the crumb (eg: Jenkins-Crumb:86df83e602414bae9f0ad90588a9223306ab5e103d7749a88f5bc92ff505c183) --> copy it to be used in 'curl' command
+
+* After generating the JOB URL, token and CRUMB --> Run the below 'curl' command (update the values) from antwhere (eg: Git Bash)
+```
+curl -I -X POST http://username:APItoken@Jenkins_IP:8080/job/JOB_NAME/build?token=TOKENNAME
+-H "Jenkins-Crumb:CRUMB"
+```
+> Syntax of the command --> curl -I -X POST http://(TokenForUser)@(JobURL without http://) -H "CRUMB"
+
+> eg: curl -I -X POST http://admin:86df83e602414bae9f0ad90588a92233@JenkinsServerIP:8080/job/Build/build?token=mybuildtoken -H "Jenkins-Crumb:86df83e602414bae9f0ad90588a9223306ab5e103d7749a88f5bc92ff505c183"
