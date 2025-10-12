@@ -3,7 +3,7 @@
 pipeline {
 
 	agent {
-		label 'PLUTO'   // label name of the node/agent
+		label 'PLUTO'   // label name given to the node/agent added in Jenkins
     }
 
 	tools {

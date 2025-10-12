@@ -184,3 +184,9 @@ ls -ld /opt/jenkins/
 * In Jenkins --> `+ New Item` --> Give a name and select item type as `pipeline` and click ok
     - Under Pipeline --> Definition --> Pipeline script --> paste the pipeline script
     - save --> build now
+
+
+> In a big organaization where the Jenkins is been used a centralized tool, we can disable the execution on the Jenkins itself (Master). Jenkins will select the node randomly or based on the label.
+Jenkins dashboard --> manage jenkins --> system --> usage --> select `only build jobs with label expressions matching this node`. Now the job will not run on the master but will try to find available node or try to match the label.
+
+> Jenkins dashboard --> manage jenkins --> clouds (Add, remove and configure cloud instances to provision agents on-demand). To launch EC2 instances or Docker container on demand and execute jobs and then kill them or delete them.
