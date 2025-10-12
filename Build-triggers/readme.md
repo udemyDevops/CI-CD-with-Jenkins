@@ -108,4 +108,6 @@
     > eg: 30 20 * * 1-5 --> run at 8:30 PM every Monday to Friday
 
 #### Remote Trigger
-Can refer -- [_word Doc_](Build+Triggers+Remotely.docx) and [_pdf file_](Build+Triggers+Remotely.pdf)
+Can refer
+- [_Build+Triggers+Remotely.docx_](Build+Triggers+Remotely.docx)
+- [_Build+Triggers+Remotely.pdf_](Build+Triggers+Remotely.pdf)
