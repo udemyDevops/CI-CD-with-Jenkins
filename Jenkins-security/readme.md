@@ -27,4 +27,3 @@
     ![alt text](userPermissions.png)
     - As admin user, go to a job (where the user need access) --> configure --> 
         * Under General --> tick the box for `enable project-based security` --> click `add user or group`
-        ![alt text](job-or-project-permissions.png)
