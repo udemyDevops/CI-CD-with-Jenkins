@@ -18,7 +18,7 @@
     - **Authorization**
         * Matrix-based security - permissions at Jenkins level
             - click `add user or group` as admin user --> 
-            
+
             ![alt text](addUser.png)
             ![alt text](userPermissions.png) 
 
@@ -35,6 +35,7 @@
 
 
 * In case of many users, we can create a `role` and assign it to users. For this we need a plugin
+    - Easy to manage permissions as the roles can be defined early and the user can be added as and when required.
     - manage jenkins --> manage plugins --> Available --> search for `Role-based Authorization strategy`and install it
     - once the plugin is installed --> Manage Jenkins --> security --> configure Global security --> Autorization
         * select `Role-based strategy`
