@@ -39,3 +39,5 @@
         * Manage Jenkins --> security --> manage and assign roles
             - manage roles --> click `add` to add a role and provide permissions. This role can be assigned to the users as per the requirement
             ![alt text](addRole.png)
+            - assign roles --> click `add` to add a user and assign the role
+            ![alt text](assignRole.png)
