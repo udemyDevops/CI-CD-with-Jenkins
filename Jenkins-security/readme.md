@@ -30,3 +30,12 @@
                 ![alt text](job-specific-permissions.png)
 
 
+* In case of many users, we can create a `role` and assign it to users. For this we need a plugin
+    - manage jenkins --> manage plugins --> Available --> search for `Role-based Authorization strategy`and install it
+    - once the plugin is installed --> Manage Jenkins --> security --> configure Global security --> Autorization
+        * select `Role-based strategy`
+        ![alt text](role-based-strategy.png)
+    - Now a new option `manage and assign roles` will be visible under Manage Jenkins --> security
+        * Manage Jenkins --> security --> manage and assign roles
+            - manage roles --> click `add` to add a role and provide permissions. This role can be assigned to the users as per the requirement
+            ![alt text](addRole.png)
