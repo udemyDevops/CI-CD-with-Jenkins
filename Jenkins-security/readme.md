@@ -11,7 +11,7 @@
         ![alt text](security-realm.png)
 
         1. Jenkin's own user database --> Allow users to sing up (Users with the Jenkins URL can sign up themself)
-            - Once the user sign up, the Admin user have to provide permissions --> Manage Jenkins --> security --> configure Global security --> Authorization --> click `add user or group` --> give the user name (if the user is not part of Jenkin's database a cross 'x'mark wuill be shown for the user logo)
+            - Once the user sign up, the Admin user have to provide permissions --> Manage Jenkins --> security --> configure Global security --> Authorization --> click `add user or group` --> give the user name (if the user is not part of Jenkin's database a cross 'x' mark wuill be shown for the user logo)
         2. LDAP --> to integrate users in AD
 
 
@@ -53,3 +53,5 @@
             ![alt text](assignRole.png)
 
 
+* We can also add users in Jenkins which will be added to Jenkins database (if Jenkin's own user database is selected for Authentication)
+    - Manage Jenkins --> security --> manage users
