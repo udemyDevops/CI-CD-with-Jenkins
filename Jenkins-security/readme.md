@@ -7,6 +7,7 @@
 * Manage Jenkins --> security --> configure Global security --> 
 
     - **Authentication** --> security realm
+
         ![alt text](security-realm.png)
 
         1. Jenkin's own user database --> Allow users to sing up (Users with the Jenkins URL can sign up themself)
